@@ -25,7 +25,7 @@ async function activate() {
   if (!key) return alert('Enter license key');
   const device = btoa(navigator.userAgent + screen.width + screen.height + Date.now());
   try {
-    const res = await fetch('https://levelgod-sensi.vercel.app/api/auth?key=' + key + '&device=' + device, {method: 'GET'});
+    const res = await fetch('https://levelgod-ios-main.vercel.app/api/auth?key='+key+'&device='+device);
     const data = await res.json();
     const statusEl = document.getElementById('status');
     if (data.valid) {

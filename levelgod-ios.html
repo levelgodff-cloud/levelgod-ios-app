@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>🚀 LEVELGOD IOS</title>
+<style>
+body {background:black;color:lime;font-family:monospace;padding:20px;text-align:center;}
+input {padding:15px;font-size:16px;width:90%;margin:10px 0;border:1px solid lime;background:#111;}
+button {padding:15px;background:lime;color:black;font-weight:bold;border:none;border-radius:10px;font-size:18px;}
+#status {background:#111;padding:20px;border-radius:10px;margin-top:20px;font-size:14px;line-height:1.4;}
+h1 {font-size:28px;margin:20px 0;}
+</style>
+</head>
+<body>
+<h1>🚀 LEVELGOD IOS v1</h1>
+<p>@levelgodff | DPI 111 Pro Configs</p>
+<input id="key" placeholder="Enter License Key (e.g. ABC123-DEF456)" maxlength="32">
+<button onclick="activate()">ACTIVATE LEVELGOD IOS</button>
+<pre id="status">Enter key above → Unlock Aim 99% + No Recoil configs<br>Device-bound license required</pre>
+
+<script>
+async function activate() {
+  const key = document.getElementById('key').value.trim();
+  if (!key) return alert('Enter license key');
+  const device = btoa(navigator.userAgent + screen.width + screen.height + Date.now());
+  try {
+    const res = await fetch('https://levelgod-sensi.vercel.app/api/auth?key=' + key + '&device=' + device, {method: 'GET'});
+    const data = await res.json();
+    const statusEl = document.getElementById('status');
+    if (data.valid) {
+      statusEl.innerHTML = '✅ LEVELGOD IOS ACTIVATED!<br>Expiry: ' + data.expiry + '<br>✅ DPI 111 | Aim 99% | No Recoil Loaded<br>Pro configs ready @levelgodff';
+      statusEl.style.color = 'lime';
+    } else {
+      statusEl.innerHTML = '❌ Invalid/Expired Key<br>Contact support or buy new license';
+      statusEl.style.color = 'red';
+    }
+  } catch(e) {
+    document.getElementById('status').innerHTML = '❌ Network error - Check Vercel API';
+  }
+}
+</script>
+</body>
+</html>
